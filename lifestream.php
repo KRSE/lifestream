@@ -29,10 +29,11 @@ $merged = SimplePie::merge_items($merge, 0, 20); // Get the 20 most recent items
 <head>
 	<title>Someone's Lifestream</title>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 
-	<h1>My Lifesteam</h1>
+	<h1>My Lifestream</h1>
 <?php
 	$thedate = '';
 	foreach ($merged as $item):
