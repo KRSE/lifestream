@@ -16,7 +16,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	background: transparent;
 }
 body {
-	line-height: 1;
+	line-height: 1.3em;
+	font-family: sans-serif;
 }
 ol, ul {
 	list-style: none;
@@ -47,4 +48,42 @@ del {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+.item {
+	padding: 5px 10px;
+	margin: 3px 0;
+}
+
+.delicious {
+	background-color: #9FF;
+}
+
+.km_se {
+	background-color: #6F9;
+}
+
+.twitter {
+	background-color: #FFC;
+}
+
+.krse_tumblr {
+	background-color: #FCC;
+}
+
+h1, h2 {
+	padding: 5px 0 5px 10px;
+}
+
+h1 {
+	font-size: 1.5em;
+}
+
+h2 {
+	background-color: #EFEFEF;
+	color: #333;
+	}
+
+small {
+	font-size: .6667em;
 }

@@ -1,9 +1,11 @@
 <?php
-$twitter_user = '';
+$twitter_user = 'ekfors';
 $feeds = array(
-	'http://blog.treypiepmeier.com/feed/',
-	'http://solutions.treypiepmeier.com/feed/',
-	'http://github.com/trey.atom'
+	'http://www.42km.se/rss/',
+	'http://api.flickr.com/services/feeds/photos_public.gne?id=47324257@N00&lang=en-us&format=rss_200',
+	'http://krse.tumblr.com/rss/',
+	'http://del.icio.us/rss/KRSE',
+	'http://twitter.com/statuses/user_timeline/ekfors.rss'
 );
 
 function getClass($url)
@@ -13,16 +15,17 @@ function getClass($url)
 	$class = preg_replace("/www\./", "", $class); // Remove `www.`.
 	$class = preg_replace("/\.(com|org|net)/", "", $class); // Remove top level domains. Add more as you see fit.
 	$class = preg_replace("/\./", "_", $class); // Replace `.`s with `_`s.
+	$class = preg_replace('#^\d+#', '', $class); // Remove numbers i beginning of string
 	return $class;
 }
 
-date_default_timezone_set('America/Chicago'); // Change this to your timezone.
+date_default_timezone_set('Europe/Stockholm'); // Change this to your timezone.
 require_once('simplepie.inc');
 foreach ($feeds as $feed) {
 	$merge[] = new SimplePie($feed);
 }
 
-$merged = SimplePie::merge_items($merge, 0, 20); // Get the 20 most recent items.
+$merged = SimplePie::merge_items($merge, 0, 25); // Get the 20 most recent items.
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
@@ -63,7 +66,13 @@ $merged = SimplePie::merge_items($merge, 0, 20); // Get the 20 most recent items
 		<h3><a href="<?php echo $item->get_permalink(); ?>"><?php echo $item->get_title(); ?></a></h3>
 		<?php endif; ?>
 		<div class="content">
-			<?php echo $item->get_description(); ?>
+			<?php 
+			$post = $item->get_description();
+			$post = preg_replace("/<img[^>]+\>/i", "", $post); // Remove images 
+			$post =	preg_replace('{^(<br(\s*/)?>|ANDnbsp;)+}i', '', $post); // Remove excess <br> and &nbsp; from start of string
+			$post = preg_replace('{(<br(\s*/)?>|ANDnbsp;)+$}i', '', $post); // Remove excess <br> and &nbsp; from end of string 
+			echo strip_tags($post, '<a>');
+			?> 
 		</div><!-- .content -->
 
 		<?php endif; // end of Twitter check ?>
